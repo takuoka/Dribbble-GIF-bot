@@ -1,17 +1,4 @@
-defmodule DribbbleGif do
-
-  # ✔ dribbleのURLももってくる
-  # ✔ タイトルも取ってくる
-  # ✔ 重複しない → TLとってくる
-  # 定期ツイート
-  # All Timeもとりはじめる
-
-  @max_page 20
-
-  def main do
-    random_gif_tweet
-  end
-
+defmodule DribbbleGif.Tweet do
   def random_gif_tweet do
     IO.puts("---- random_gif_tweet ----")
     page_num = DribbbleGif.Util.random_num(@max_page)
@@ -21,12 +8,13 @@ defmodule DribbbleGif do
       IO.puts "💬 " <> status
       tweet_gif(status, gif_url)
       IO.puts "------- tweeted. ---------"
+      {:ok}
     else
-      IO.puts "duplicated!!!! ===="
+      raise "duplicated!!!! ===="
     end
   end
 
-  def tweet_gif(message, url) do
+  defp tweet_gif(message, url) do
       IO.puts "Downloading image..."
        {:ok, res} = HTTPoison.get(url)
        encoded_image = Base.encode64(res.body)

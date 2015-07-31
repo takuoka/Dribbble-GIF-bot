@@ -1,4 +1,6 @@
 defmodule DribbbleGif.Tweet do
+  @max_page 20
+
   def random_gif_tweet do
     IO.puts("---- random_gif_tweet ----")
     page_num = DribbbleGif.Util.random_num(@max_page)
@@ -10,7 +12,7 @@ defmodule DribbbleGif.Tweet do
       IO.puts "------- tweeted. ---------"
       {:ok}
     else
-      raise "duplicated!!!! ===="
+      raise "duplicated item."
     end
   end
 

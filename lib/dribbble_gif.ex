@@ -2,18 +2,21 @@ defmodule DribbbleGif do
 
   # ✔ dribbleのURLももってくる
   # ✔ タイトルも取ってくる
-  # 重複しない→TLとってくる
+  # ✔ 重複しない → TLとってくる
   # 定期ツイート
   # All Timeもとりはじめる
 
   @max_page 20
 
   def main do
+    DribbbleGif.CheckDuplicate.test
+
     #   IO.puts "test.."
     #   page_num = DribbbleGif.Util.random_num(@max_page)
     #   {title, link_url, gif_url} = DribbbleGif.GetGifUrl.fetch_random_gif_url(page_num)
     #   IO.puts gif_url
-    random_gif_tweet
+
+    # random_gif_tweet
   end
 
   def random_gif_tweet do

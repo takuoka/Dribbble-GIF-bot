@@ -1,5 +1,5 @@
 defmodule DribbbleGif.FetchTimeline do
-  @max_history_num 1000#1ヶ月ちょい
+  @max_history_num 3000#4.166666667ヶ月分
   @user_id "dribbble_gif"
   @once_max 200
   alias ExTwitter.API.Timelines, as: API

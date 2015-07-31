@@ -6,10 +6,13 @@ defmodule DribbbleGif.CheckDuplicate do
     IO.puts isDuplicated(test_url)
   end
 
-  def isDuplicated(url) do
-    tweets = DribbbleGif.FetchTimeline.fetch_tweets
+  def isDuplicated(url, tweets) do
     urls = Enum.map(tweets, fn(t) -> t.entities.urls end)
     search_url(urls, url)
+  end
+
+  def isDuplicated(url) do
+    isDuplicated(url, DribbbleGif.FetchTimeline.fetch_tweets)
   end
 
   defp search_url([h|t], url) do

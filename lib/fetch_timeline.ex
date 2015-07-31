@@ -1,4 +1,4 @@
-defmodule DribbbleGif.FetchTimeline do
+defmodule DribbbleGif.Timeline do
   @max_history_num 3000#4.166666667ヶ月分
   @user_id "dribbble_gif"
   @once_max 200
@@ -16,7 +16,7 @@ defmodule DribbbleGif.FetchTimeline do
     fetch_tweets first_tweets, first_tweets
   end
   defp fetch_tweets(last_tweets, all_tweets) do
-    IO.puts "🐝 fetch tweets ..."
+    IO.puts "🐣 fetch tweets ..."
     max_id = List.last(last_tweets).id - 1
     new_tweets = API.user_timeline([user_id: @user_id, count: @once_max, max_id: max_id])
     all_tweets = all_tweets ++ new_tweets

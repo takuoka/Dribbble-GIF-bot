@@ -12,22 +12,18 @@ defmodule DribbbleGif do
     try_tweet
   end
 
-
   def try_tweet do
     spawn_monitor DribbbleGif.Tweet, :random_gif_tweet, []
     receive do
       {:DOWN, _, _, _, :normal} ->
         IO.puts "✨ Tweet suceed!"
-
       {:DOWN, _, _, _, error} ->
         IO.puts "🎃 Tweet FAILED!!"
         IO.inspect error
         re_try_tweet
-
       _ ->
         IO.puts "❓ error!?"
         re_try_tweet
-
       # after
       #   1000 * 9000 -> "timeout.."
     end

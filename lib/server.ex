@@ -2,33 +2,41 @@ defmodule DribbbleGif.Server do
   use GenServer
 
   def start_link(cache_pid) do
-    GenServer.start_link(__MODULE__, cache_pid, name: __MODULE__)
+    started = GenServer.start_link(__MODULE__, cache_pid, name: __MODULE__)
+    search_and_tweet
+    started
   end
 
   def search_and_tweet() do
-    GenServer.cast __MODULE__, {:search_and_tweet}
+    IO.puts "search_and_tweet..."
+    GenServer.cast(__MODULE__, {:search_and_tweet})
+  end
+  def wait_and_crash do
+    GenServer.cast(__MODULE__, {:wait_and_crash})
   end
 
   def handle_cast({:search_and_tweet}, cache_pid) do
-    item = DribbbleGif.Search.get_new_item(cache_pid)
+    # unless DribbbleGif.Util.random_num(10) == 1 do
+    #   :timer.sleep(1000)
+    #   raise "Test error"
+    # end
+    item = DribbbleGif.Search.search_item(cache_pid)
     if item do
       IO.puts "🍓 found new item!"
       tweet(item)
+      wait_and_crash
     else
       raise "Can't get new item."
     end
     {:noreply, :ok}
   end
-  # def handle_cast({:search_and_tweet}, _from, cache_pid) do
-  #   item = DribbbleGif.Search.get_new_item(cache_pid)
-  #   if item do
-  #     IO.puts "🍓 found new item!"
-  #     tweet(item)
-  #   else
-  #     raise "Can't get new item."
-  #   end
-  #   {:reply, :ok, cache_pid}
-  # end
+
+  def handle_cast({:wait_and_crash}, cache_pid) do
+    IO.puts "⏰ restart after 1 hour... 😪"
+    :timer.sleep(1000 * 60 * 60)
+    raise "✨✨restart this process!! ✨✨"
+    {:noreply, :ok}
+  end
 
   def tweet(item) do
     {title, link_url, image} = item

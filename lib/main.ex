@@ -10,21 +10,21 @@ defmodule DribbbleGif do
   # ✔ でかすぎる画像のURLをメモリでキャッシュ
   # ✔ supervise
   # ✔ one_for_one : 画像URLキャッシュ, サーチ&Tweet
-  # ツイート失敗したときにリトライ
-  # All Timeからのランダムピックを用意→しこむ
-  # 定期ツイート
-  # デプロイ
+  # ✔ ツイート失敗したときにリトライ
+  # ✔ All Timeに切り替え
+  # ✔ 定期ツイート
+  # デプロイ   elixir --detached -S mix run --no-halt
+
   # --- できればあとで ---
   # ツイートの取得も一回にして、メモリ上のmapにアップデートしていく感じにしたい。
 
   use Application
   def start(_type, _args) do
     IO.puts "🚶 started."
-    DribbbleGif.Supervisor.start_link
+    main
   end
 
   def main do
     DribbbleGif.Supervisor.start_link
-    DribbbleGif.Server.search_and_tweet
   end
 end

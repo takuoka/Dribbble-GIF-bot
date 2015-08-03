@@ -5,15 +5,20 @@ defmodule DribbbleGif.Feeds do
 
   @dribbble_url "https://dribbble.com"
   @dribbble_gif_now_popular_url "https://dribbble.com/shots?list=animated"
+  @dribbble_gif_alltime_popular_url "https://dribbble.com/shots?list=animated&timeframe=ever"
 
-  def fetch_from_now(page) do
-    page_url = @dribbble_gif_now_popular_url <> "&page=#{page}"
+  def fetch(:alltime, page_num) do
+    fetch(@dribbble_gif_alltime_popular_url <> "&page=#{page_num}")
+  end
+  def fetch(:now, page_num) do
+    fetch(@dribbble_gif_now_popular_url <> "&page=#{page_num}")
+  end
+  def fetch(page_url) do
     IO.puts "🐝 #{page_url} ..."
     res = HTTPoison.get!( page_url )
     %HTTPoison.Response{status_code: 200, body: body} = res
     feeds = Floki.find(body, ".dribbble-img")
     [_|feeds] = feeds # remove first element (empty start)
-    feeds
     Enum.map(feeds, fn(f) -> get_feed_info(f) end)
   end
 
@@ -42,26 +47,4 @@ defmodule DribbbleGif.Feeds do
     # remove "_teaser"
     String.slice(gifUrl, 0, String.length(gifUrl) - 11) <> ".gif"
   end
-
-  #
-  # def fetch_random_gif_url(page) do
-  #   # page_url = @dribbble_gif_now_popular_url <> "&page=#{page}"
-  #   # IO.puts " #{page_url} ..."
-  #   # res = HTTPoison.get!( page_url )
-  #   # %HTTPoison.Response{status_code: 200, body: body} = res
-  #   extract_random_gif_url(get_feeds_from_now(page))
-  # end
-  #
-  # defp extract_random_gif_url(feeds) do
-  #   # get random feed element
-  #   feeds = List.to_tuple(feeds)
-  #   random_index = DribbbleGif.Util.random_num(tuple_size(feeds)) - 1
-  #   feed = elem(feeds, random_index)
-  #   # parse html
-  #   link_url = extract_link(feed)
-  #   gif_url = extract_gif_url(feed)
-  #   title = extract_title(feed)
-  #   {title, link_url, gif_url}
-  # end
-  #
 end

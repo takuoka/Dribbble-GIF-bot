@@ -4,36 +4,41 @@ defmodule DribbbleGif.Search do
   alias DribbbleGif.CheckDuplicate
   @max_page_for_now_list 20
 
-  def get_new_item(cache_pid) do
-    feed = search_from_new(cache_pid)
+  def search_item(cache_pid) do
+    feed = search_item(:now, cache_pid)
     if feed do
       feed
     else
-      # 全てからランダムで取ってくる
+      search_item(:alltime, cache_pid)# newから取れなかった場合 全てに切り替える
     end
   end
-
-  def search_from_new(cache_pid) do
+  defp search_item(type, cache_pid) do
     tweets = Timeline.fetch_tweets
-    search_from_new(1, tweets, cache_pid)
+    search_item(type, 1, tweets, cache_pid)
   end
-  def search_from_new(page, tweets, cache_pid) do
-    IO.puts "📰 search_from_new #{page} ... "
-    feeds = Feeds.fetch_from_now(page)
+  defp search_item(type, page, tweets, cache_pid) do
+    IO.puts "📰 search from #{type}, #{page} ... "
+    feeds = Feeds.fetch(type, page)
     feed = get_unduplicated_feed(feeds, tweets, cache_pid)
     if feed do
       feed
     else
       next_page = page + 1
-      if next_page < @max_page_for_now_list do
-        search_from_new(page + 1, tweets, cache_pid)
+      if type == :now do
+        maxpage = @max_page_for_now_list
+      else
+        maxpage = 40
+      end
+      if next_page < maxpage do
+        search_item(type, page + 1, tweets, cache_pid)
       else
         nil
       end
     end
   end
 
-  def get_unduplicated_feed([feed|tail], tweets, cache_pid) do
+
+  defp get_unduplicated_feed([feed|tail], tweets, cache_pid) do
     {title, link_url, gif_url} = feed
     IO.puts "* #{title}"
     unless CheckDuplicate.isDuplicated(link_url, tweets) do
@@ -48,11 +53,11 @@ defmodule DribbbleGif.Search do
       get_unduplicated_feed(tail, tweets, cache_pid)
     end
   end
-  def get_unduplicated_feed([], tweets, cache_pid) do
+  defp get_unduplicated_feed([], tweets, cache_pid) do
     nil
   end
 
-  def download_and_check_image(url, cache_pid) do
+  defp download_and_check_image(url, cache_pid) do
     if DribbbleGif.Cache.is_contain(cache_pid, url) do
       IO.puts "too big image."
       nil
@@ -81,25 +86,3 @@ defmodule DribbbleGif.Search do
     end
   end
 end
-
-
-
-# defmodule DribbbleGif.Search.Util do
-#     import DribbbleGif.Search
-#     alias DribbbleGif.Feeds
-#     alias DribbbleGif.Timeline
-#     alias DribbbleGif.CheckDuplicate
-#
-#     def test do
-#       feed = get_new_item
-#       if feed do
-#         IO.puts "🍓 found new item!"
-#         {title, link_url, image} = feed
-#         IO.puts "let's tweet"
-#         # tweet
-#       else
-#         # げっとできなかった場合。。そんなのないはず
-#         raise "Can't get new item..."
-#       end
-#     end
-# end

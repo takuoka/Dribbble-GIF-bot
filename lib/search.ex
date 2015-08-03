@@ -1,29 +1,15 @@
 defmodule DribbbleGif.Search do
-  @max_page_for_now_list 20
-
   alias DribbbleGif.Feeds
   alias DribbbleGif.Timeline
   alias DribbbleGif.CheckDuplicate
-
-  def test do
-    feed = get_new_item
-    if feed do
-      IO.puts "🍓 found new item!"
-      {title, link_url, image} = feed
-      IO.puts "let's tweet"
-      # tweet
-    else
-      # げっとできなかった場合。。そんなのないはず
-      raise "Can't get new item..."
-    end
-  end
+  @max_page_for_now_list 20
 
   def get_new_item do
     feed = search_from_new
     if feed do
       feed
     else
-       # 全てからランダムで取ってくる
+      # 全てからランダムで取ってくる
     end
   end
 
@@ -31,7 +17,6 @@ defmodule DribbbleGif.Search do
     tweets = Timeline.fetch_tweets
     search_from_new(1, tweets)
   end
-
   def search_from_new(page, tweets) do
     IO.puts "📰 search_from_new #{page} ... "
     feeds = Feeds.fetch_from_now(page)
@@ -69,17 +54,49 @@ defmodule DribbbleGif.Search do
 
   def download_image(url) do
     IO.puts "📦 download image ..."
+    # IO.inspect url
     {:ok, res} = HTTPoison.get(url)
+    # IO.inspect res
     [_|[contentInfo|_]] = res.headers
-    size_of_byte = contentInfo |> elem(1) |> Integer.parse |> elem(0)
-    mega_byte = size_of_byte / 1000 / 1000
-    if mega_byte < 5 do
-      image = Base.encode64(res.body)
-      image
+    # IO.inspect contentInfo
+    if (contentInfo |> elem(0)) == "Content-Length" do
+      size_of_byte = contentInfo |> elem(1) |> Integer.parse |> elem(0)
+      mega_byte = size_of_byte / 1000 / 1000
+      IO.inspect mega_byte
+      if mega_byte < 5 do
+        image = Base.encode64(res.body)
+        image
+      else
+        IO.puts "😂 image is too big."
+        nil
+      end
     else
-      IO.puts "😂 image is too big."
+      IO.puts "😓 cannot download image."
+      IO.inspect url
+      IO.inspect res
       nil
     end
   end
+end
 
+
+
+defmodule DribbbleGif.Search.Util do
+    import DribbbleGif.Search
+    alias DribbbleGif.Feeds
+    alias DribbbleGif.Timeline
+    alias DribbbleGif.CheckDuplicate
+
+    def test do
+      feed = get_new_item
+      if feed do
+        IO.puts "🍓 found new item!"
+        {title, link_url, image} = feed
+        IO.puts "let's tweet"
+        # tweet
+      else
+        # げっとできなかった場合。。そんなのないはず
+        raise "Can't get new item..."
+      end
+    end
 end

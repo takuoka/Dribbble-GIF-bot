@@ -5,7 +5,10 @@ defmodule DribbbleGif do
   # ✔ 重複しない → TLとってくる
   # ✔ 成功するまでトライする
   # ✔ ページをだんだん遡るようにする
+  # ✔ キャッシュ用モジュール作成
+  # でかすぎる画像のURLをメモリでキャッシュ
   # All Timeからのランダムピックを用意→しこむ
+  # supervise
   # 定期ツイート
   # デプロイ
 
@@ -14,14 +17,14 @@ defmodule DribbbleGif do
 
   def main do
     IO.puts "🚶 started."
-    try_tweet
+    # try_tweet
   end
 
   def tweet do
-    feed = Search.get_new_item
-    if feed do
+    item = Search.get_new_item
+    if item do
       IO.puts "🍓 found new item!"
-      Tweet.tweet(feed)
+      # Tweet.tweet(item)
     else
       raise "Can't get new item."
     end
@@ -45,7 +48,7 @@ defmodule DribbbleGif do
   end
   # repost after 60 sec
   def re_try_tweet do
-    :timer.sleep(1000 * 60)
+    :timer.sleep(1000 * 10)
     try_tweet
   end
 end

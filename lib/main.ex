@@ -13,7 +13,11 @@ defmodule DribbbleGif do
   # ✔ ツイート失敗したときにリトライ
   # ✔ All Timeに切り替え
   # ✔ 定期ツイート
-  # デプロイ   elixir --detached -S mix run --no-halt
+  # ✔ デプロイ   elixir --detached -S mix run --no-halt
+
+  # ✔ バグなおす
+  # ↓ 大丈夫
+  # 自動フォロー機能
 
   # --- できればあとで ---
   # ツイートの取得も一回にして、メモリ上のmapにアップデートしていく感じにしたい。

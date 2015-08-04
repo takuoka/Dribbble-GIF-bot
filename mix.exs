@@ -15,8 +15,10 @@ defmodule DribbbleGif.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :httpoison],
-     mod: {DribbbleGif, []}]
+    [
+      applications: [:logger, :httpoison],
+      mod: {DribbbleGif, []}
+    ]
   end
 
   # Dependencies can be Hex packages:

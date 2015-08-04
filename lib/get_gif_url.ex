@@ -48,3 +48,12 @@ defmodule DribbbleGif.Feeds do
     String.slice(gifUrl, 0, String.length(gifUrl) - 11) <> ".gif"
   end
 end
+
+
+defmodule DribbbleGif.Feeds.Test do
+  import DribbbleGif.Feeds
+
+  def test do
+    fetch(:now, 2)
+  end
+end

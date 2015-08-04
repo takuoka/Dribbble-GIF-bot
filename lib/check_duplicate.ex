@@ -19,7 +19,7 @@ defmodule DribbbleGif.CheckDuplicate do
     if h == [] do
       search_url(t, url)
     else
-      if List.first(h).expanded_url == url do
+      if is_contain(h, url) do
         true
       else
         search_url(t, url)
@@ -29,4 +29,16 @@ defmodule DribbbleGif.CheckDuplicate do
   defp search_url([], url) do
     false
   end
+
+  def is_contain([h|t], url) do
+    if h.expanded_url == url do
+      true
+    else
+      is_contain(t, url)
+    end
+  end
+  def is_contain([], url) do
+    false
+  end
+
 end

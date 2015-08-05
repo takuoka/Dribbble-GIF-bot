@@ -1,6 +1,7 @@
 defmodule DribbbleGif.Cache do
 
   def start_link do
+    IO.puts "chache is started."
     Agent.start_link(fn -> [] end)
   end
 

@@ -4,18 +4,37 @@ defmodule DribbbleGif.Timeline do
   @once_max 200
 
   def fetch_tweets do
-    first_tweets = ExTwitter.API.Timelines.user_timeline([user_id: @user_id, count: @once_max])
+    IO.puts "fetch_tweets..."
+    first_tweets = req_self_tl
+    IO.puts "fetched"
     fetch_tweets first_tweets, first_tweets
   end
   defp fetch_tweets(last_tweets, all_tweets) do
     IO.puts "🐣 fetch tweets ..."
     max_id = List.last(last_tweets).id - 1
-    new_tweets = ExTwitter.API.Timelines.user_timeline([user_id: @user_id, count: @once_max, max_id: max_id])
+    new_tweets = req_self_tl(max_id)
     all_tweets = all_tweets ++ new_tweets
     case new_tweets do
         [] -> all_tweets
         _ when length(all_tweets) > @max_history_num -> all_tweets
         _ -> fetch_tweets(new_tweets, all_tweets)
+    end
+  end
+
+  def req_self_tl(max_id \\ nil) do
+    options = [user_id: @user_id, count: @once_max]
+    if max_id do
+      options = [user_id: @user_id, count: @once_max, max_id: max_id]
+    end
+    IO.puts "🐝 req_self_tl..."
+    try do
+      ExTwitter.API.Timelines.user_timeline(options)
+    rescue
+      e in ExTwitter.RateLimitExceededError ->
+        IO.puts "❌ RateLimitExceededError"
+        IO.puts "⏰ retry afeter 20 min..."
+        :timer.sleep (1000 * 60 * 20)
+        req_self_tl(max_id)
     end
   end
 end

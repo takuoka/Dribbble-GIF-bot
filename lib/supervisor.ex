@@ -5,6 +5,7 @@ defmodule DribbbleGif.Supervisor do
     res = {:ok, sup} = Supervisor.start_link(__MODULE__, [])
     {:ok, cache_pid} = Supervisor.start_child(sup, worker(DribbbleGif.Cache, []))
     Supervisor.start_child(sup, supervisor(DribbbleGif.SubSupervisor, [cache_pid]))
+    Supervisor.start_child(sup, worker(DribbbleGif.FollowServer, []))
     res
   end
 

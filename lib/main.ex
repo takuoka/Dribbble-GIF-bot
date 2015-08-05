@@ -1,6 +1,9 @@
 defmodule DribbbleGif do
 
   # chokidar **/*.exs **/*.ex -c 'iex -S mix run -e "DribbbleGif.main"'
+  # START : elixir --detached -S mix run --no-halt
+  # KILL  : ps -eaf|grep elixir → kill
+
   # ✔ dribbleのURLももってくる
   # ✔ タイトルも取ってくる
   # ✔ 重複しない → TLとってくる
@@ -13,8 +16,7 @@ defmodule DribbbleGif do
   # ✔ ツイート失敗したときにリトライ
   # ✔ All Timeに切り替え
   # ✔ 定期ツイート
-  # ✔ デプロイ   elixir --detached -S mix run --no-halt
-
+  # ✔ デプロイ
   # ✔ バグなおす
   # ↓ 大丈夫
   # 自動フォロー機能

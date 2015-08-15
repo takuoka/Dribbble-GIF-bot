@@ -81,6 +81,7 @@ defmodule DribbbleGif.Search do
         IO.puts "😓 cannot download image."
         IO.inspect url
         IO.inspect res
+        DribbbleGif.Cache.add_url(cache_pid, url)
         nil
       end
     end

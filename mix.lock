@@ -1,4 +1,4 @@
-%{"extwitter": {:git, "git://github.com/entotsu/extwitter.git", "6de8770288346d2d3715687e419f4f075df56f42", []},
+%{"extwitter": {:git, "https://github.com/entotsu/extwitter.git", "6de8770288346d2d3715687e419f4f075df56f42", []},
   "floki": {:hex, :floki, "0.3.2"},
   "hackney": {:hex, :hackney, "1.3.0"},
   "httpoison": {:hex, :httpoison, "0.7.1"},

@@ -5,7 +5,7 @@ DribbbleGif
 
 
 ## if you want to use this
-Please write `config/config.exs` to use "ExTwitter" like below.
+Please add `config/config.exs` to use "ExTwitter" like below.
 
 ``` elixir
 use Mix.Config

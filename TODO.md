@@ -1,8 +1,7 @@
 
 
 
-# TODO
-
+# Must
 ## 自動アンフォロー機能ほしい
 
 ## なぜかアップロードできない画像をNGに追加していくようにしたい
@@ -26,4 +25,7 @@ State: #PID<0.131.0>
         (stdlib) gen_server.erl:659: :gen_server.handle_msg/5
         (stdlib) proc_lib.erl:237: :proc_lib.init_p_do_apply/3
 ```
+
+# できれば
+* ツイートの取得も一回にして、メモリ上のmapにアップデートしていく感じにしたい。
 

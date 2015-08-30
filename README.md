@@ -5,9 +5,10 @@ DribbbleGif
 
 
 ## if you want to use this
-Please add `config/config.exs` to use [ExTwitter](https://github.com/parroty/extwitter) like below.
+Please add `config/config.exs` to use [ExTwitter](https://github.com/parroty/extwitter).
 
-``` elixir
+###### config/config.exs
+``` elixir 
 use Mix.Config
 
 config :ex_twitter, :oauth, [

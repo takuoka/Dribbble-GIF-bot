@@ -5,7 +5,26 @@ DribbbleGif
 
 
 ## if you want to use this
+Please write `config/config.exs` to use "ExTwitter" like below.
 
-please write `config/config.exs` to use "ExTwitter".
+``` elixir
+use Mix.Config
 
-And run with `sh run.sh`.
+config :ex_twitter, :oauth, [
+   consumer_key: "xxxxxx",
+   consumer_secret: "xxxxxx",
+   access_token: "xxxxxx",
+   access_token_secret: "xxxxxx"
+]
+```
+
+### [develop] watch & run in iex
+> chokidar **/*.exs **/*.ex -c 'iex -S mix run -e "DribbbleGif.main"'
+
+### start as daemon
+> elixir --detached -S mix run --no-halt
+
+### kill daemon
+> ps -eaf|grep elixir
+> kill <PID>
+

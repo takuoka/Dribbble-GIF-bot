@@ -44,7 +44,7 @@ defmodule DribbbleGif.Search do
     unless CheckDuplicate.isDuplicated(link_url, tweets) do
       image = download_and_check_image(gif_url, cache_pid)
       if image do
-        feed = put_elem(feed, 2, image)
+        feed = Tuple.insert_at(feed, 3, image)#{title, link_url, gif_url, image}
         feed
       else
         get_unduplicated_feed(tail, tweets, cache_pid)
@@ -64,12 +64,6 @@ defmodule DribbbleGif.Search do
     else
       IO.puts "📦 download image ..."
       IO.puts url
-      # =========== fix me ==================================================================
-      if url == "https://d13yacurqjgara.cloudfront.net/users/912401/screenshots/2211615/30_fps_full.gif" do
-        DribbbleGif.Cache.add_url(cache_pid, url)
-        nil
-      end
-      # =============== fix me ==============================================================
       {:ok, res} = HTTPoison.get(url)
       [_|[contentInfo|_]] = res.headers
       if (contentInfo |> elem(0)) == "Content-Length" do

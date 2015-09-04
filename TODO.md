@@ -1,16 +1,18 @@
 
 
 
-# TODO
+# Must
+## 自動アンフォロー機能ほしい
 
-* なぜかアップロードできない画像をNGに追加していくようにしたい
+## なぜかアップロードできない画像をNGに追加していくようにしたい
 
 https://dribbble.com/shots/2211615-Slideshow-prototype
 これは5MB以下でもだめだった。
 
  ↓ エラー
-2
-2:35:57.962 [error] GenServer DribbbleGif.Server terminating
+
+```
+22:35:57.962 [error] GenServer DribbbleGif.Server terminating
 Last message: {:"$gen_cast", {:search_and_tweet}}
 State: #PID<0.131.0>
 ** (exit) an exception was raised:
@@ -22,3 +24,8 @@ State: #PID<0.131.0>
         (stdlib) gen_server.erl:593: :gen_server.try_dispatch/4
         (stdlib) gen_server.erl:659: :gen_server.handle_msg/5
         (stdlib) proc_lib.erl:237: :proc_lib.init_p_do_apply/3
+```
+
+# できれば
+* ツイートの取得も一回にして、メモリ上のmapにアップデートしていく感じにしたい。
+

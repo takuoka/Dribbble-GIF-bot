@@ -36,8 +36,9 @@ defmodule DribbbleGif.FetchUser do
         req_followers(user_name, cursor)
     end
   end
-
-  def filter(followers), do: Enum.filter(followers, fn(f) -> f.following == false end)
+  def filter(followers) do
+    Enum.filter(followers, fn(f) -> f.following == false && f.follow_request_sent == false end)
+  end
 end
 
 

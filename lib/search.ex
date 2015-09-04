@@ -64,12 +64,6 @@ defmodule DribbbleGif.Search do
     else
       IO.puts "📦 download image ..."
       IO.puts url
-      # =========== fix me ==================================================================
-      if url == "https://d13yacurqjgara.cloudfront.net/users/912401/screenshots/2211615/30_fps_full.gif" do
-        DribbbleGif.Cache.add_url(cache_pid, url)
-        nil
-      end
-      # =============== fix me ==============================================================
       {:ok, res} = HTTPoison.get(url)
       [_|[contentInfo|_]] = res.headers
       if (contentInfo |> elem(0)) == "Content-Length" do

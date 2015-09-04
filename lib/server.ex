@@ -43,9 +43,6 @@ defmodule DribbbleGif.Server do
     status = title <> "\n" <> link_url
     IO.puts "💬 " <> status
     IO.puts "Tweeting..."
-    # ここでエラーが起きたらlink_urlから画像URLをキャッシュしたい
-    # １　エラーの検出
-    # ２　画像URLをここまで持ってきてキャッシュ
     try do
       ExTwitter.API.Tweets.upload_tweet(status, image)
       IO.puts "------- tweeted. ---------"
@@ -57,7 +54,7 @@ defmodule DribbbleGif.Server do
           IO.puts "image url: " <> gif_url
           DribbbleGif.Cache.add_url(cache_pid, gif_url)
           IO.puts "Invalid GifUrl was chached! 😁"
-          raise "Restart this process!! 🎃"
+          raise "✨✨Restart this process!!✨✨"
         end
     end
   end

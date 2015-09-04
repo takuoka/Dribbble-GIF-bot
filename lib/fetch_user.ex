@@ -10,19 +10,8 @@ defmodule DribbbleGif.FetchUser do
   def getFollowingToUnfollow do
     followings = get_followingWithFilter("dribbble_gif", nil)
     followers = getAllFollowers("dribbble_gif")
-    # followingsをfilterしてfollowerじゃないヤツだけにする
-
-    # def is_follower(id) do
-    #     is_contain(id, followers)
-    # end
-    # followerじゃないやつだけ
     followingToUnfollow = Enum.filter(followings, fn(f) -> is_contain(f.screen_name, followers) == false end)
-
-    IO.puts length(followings)
-    IO.puts length(followers)
-    IO.puts length(followingToUnfollow)
-
-    require IEx; IEx.pry
+    followingToUnfollow
   end
 
   def getAllFollowers(user_name) do

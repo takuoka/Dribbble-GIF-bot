@@ -45,17 +45,17 @@ defmodule DribbbleGif.Server do
     IO.puts "Tweeting..."
     try do
       ExTwitter.API.Tweets.upload_tweet(status, image)
-      IO.puts "------- tweeted. ---------"
+      IO.puts "-------✅✅✅ tweeted. ✅✅✅---------"
     rescue
       e in ExTwitter.Error ->
-        IO.puts "🎃 TWEET ERROR"
-        if e.message == "The validation of media ids failed." do
-          IO.puts "❌❌ The validation of media ids failed. ❌❌"
-          IO.puts "image url: " <> gif_url
-          DribbbleGif.Cache.add_url(cache_pid, gif_url)
-          IO.puts "Invalid GifUrl was chached! 😁"
-          raise "✨✨Restart this process!!✨✨"
+        IO.puts "🎃 TWEET ERROR ❌❌" <> e.message <> "❌❌"
+
+        if e.message != "The validation of media ids failed." do
+          IO.puts "❓❓❓ Whats happen?! ❓❓❓"
         end
+        DribbbleGif.Cache.add_url(cache_pid, gif_url)
+        IO.puts "Invalid GifUrl was chached! 😁"
+        raise "✨✨Restart this process!!✨✨"
     end
   end
 end

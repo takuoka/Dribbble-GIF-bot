@@ -8,7 +8,7 @@ DribbbleGif
 Please add `config/config.exs` to use [ExTwitter](https://github.com/parroty/extwitter).
 
 ###### config/config.exs
-``` elixir 
+``` elixir
 use Mix.Config
 
 config :ex_twitter, :oauth, [
@@ -21,6 +21,9 @@ config :ex_twitter, :oauth, [
 
 ### [develop] watch & run in iex
 > chokidar **/*.exs **/*.ex -c 'iex -S mix run -e "DribbbleGif.main"'
+
+### launch test
+> elixir -S mix run --no-halt
 
 ### start as daemon
 > elixir --detached -S mix run --no-halt

@@ -36,7 +36,7 @@ defmodule DribbbleGif.Mixfile do
       {:timex, "~> 0.16.2"},
       {:floki, "~> 0.3"},
       {:oauth, github: "tim/erlang-oauth"},
-      {:extwitter, github: "entotsu/extwitter"},
+      {:extwitter, github: "parroty/extwitter"},
     ]
   end
 end

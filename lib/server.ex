@@ -23,7 +23,7 @@ defmodule DribbbleGif.Server do
     item = DribbbleGif.Search.search_item(cache_pid)
     if item do
       IO.puts "🍓 found new item!"
-      tweet(item)
+      tweet(item, cache_pid)
       wait_and_crash
     else
       raise "Can't get new item."
@@ -38,12 +38,27 @@ defmodule DribbbleGif.Server do
     {:noreply, :ok}
   end
 
-  def tweet(item) do
-    {title, link_url, image} = item
+  def tweet(item, cache_pid) do
+    {title, link_url, gif_url, image} = item
     status = title <> "\n" <> link_url
     IO.puts "💬 " <> status
     IO.puts "Tweeting..."
-    ExTwitter.API.Tweets.upload_tweet(status, image)
-    IO.puts "------- tweeted. ---------"
+    # ここでエラーが起きたらlink_urlから画像URLをキャッシュしたい
+    # １　エラーの検出
+    # ２　画像URLをここまで持ってきてキャッシュ
+    try do
+      ExTwitter.API.Tweets.upload_tweet(status, image)
+      IO.puts "------- tweeted. ---------"
+    rescue
+      e in ExTwitter.Error ->
+        IO.puts "🎃 TWEET ERROR"
+        if e.message == "The validation of media ids failed." do
+          IO.puts "❌❌ The validation of media ids failed. ❌❌"
+          IO.puts "image url: " <> gif_url
+          DribbbleGif.Cache.add_url(cache_pid, gif_url)
+          IO.puts "Invalid GifUrl was chached! 😁"
+          raise "Restart this process!! 🎃"
+        end
+    end
   end
 end

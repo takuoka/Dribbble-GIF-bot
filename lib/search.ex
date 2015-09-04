@@ -44,7 +44,7 @@ defmodule DribbbleGif.Search do
     unless CheckDuplicate.isDuplicated(link_url, tweets) do
       image = download_and_check_image(gif_url, cache_pid)
       if image do
-        feed = put_elem(feed, 2, image)
+        feed = Tuple.insert_at(feed, 3, image)#{title, link_url, gif_url, image}
         feed
       else
         get_unduplicated_feed(tail, tweets, cache_pid)

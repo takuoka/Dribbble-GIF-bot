@@ -23,11 +23,12 @@ defmodule DribbbleGif.Follow do
   def gen_delay, do: @min_follow_delay + DribbbleGif.Util.random_num(@random_delay_range)
 
   def fetch do
-    followers = DribbbleGif.FetchUser.get_followers("dribbble")
+    followers = DribbbleGif.FetchUser.get_followersToFollow("dribbble")
       |> Enum.map(fn(f) -> f.screen_name end)
   end
 
   def follow(name) do
+    IO.puts "💌 @#{name} following..."
     user = ExTwitter.follow(name)
     if user.following == true do
       IO.puts "✅ @#{name} followed!"

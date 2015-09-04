@@ -71,7 +71,7 @@ defmodule DribbbleGif.Search do
         mega_byte = size_of_byte / 1000 / 1000
         IO.inspect mega_byte
         if mega_byte < 5 do
-          image = Base.encode64(res.body)
+          image = res.body
           image
         else
           IO.puts "😂 image is too big."

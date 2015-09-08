@@ -13,6 +13,9 @@ defmodule DribbbleGif.Follow do
   def start_auto_unfollow do
     IO.puts "🚶❎ start auto follow..."
     followings = fetchUsersToUnFollow
+    IO.puts "========= un-follow user ==========="
+    IO.inspect followings
+    IO.puts "========= un-follow user ==========="
     IO.puts "✨ un-follow loop start"
     user_action_loop(followings, &unfollow/1, &gen_delay_min/0)
   end
@@ -44,6 +47,7 @@ defmodule DribbbleGif.Follow do
   def fetchUsersToUnFollow do
     followings = DribbbleGif.FetchUser.getFollowingToUnfollow()
       |> Enum.map(fn(f) -> f.screen_name end)
+      |> Enum.reverse()
   end
 
   def unfollow(name) do

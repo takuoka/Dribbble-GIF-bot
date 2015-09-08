@@ -1,11 +1,11 @@
-%{"extwitter": {:git, "https://github.com/entotsu/extwitter.git", "6de8770288346d2d3715687e419f4f075df56f42", []},
-  "floki": {:hex, :floki, "0.3.2"},
-  "hackney": {:hex, :hackney, "1.3.0"},
-  "httpoison": {:hex, :httpoison, "0.7.1"},
+%{"extwitter": {:git, "https://github.com/parroty/extwitter.git", "6b0de08c06c2d35df43427306f3421842a069e27", []},
+  "floki": {:hex, :floki, "0.3.3"},
+  "hackney": {:hex, :hackney, "1.3.1"},
+  "httpoison": {:hex, :httpoison, "0.7.2"},
   "idna": {:hex, :idna, "1.0.2"},
   "mochiweb": {:hex, :mochiweb, "2.12.2"},
   "oauth": {:git, "https://github.com/tim/erlang-oauth.git", "2ee206ea921722893200a0ad534c6b6130233325", []},
-  "poison": {:hex, :poison, "1.4.0"},
+  "poison": {:hex, :poison, "1.5.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "0.16.2"},
-  "tzdata": {:hex, :tzdata, "0.1.6"}}
+  "tzdata": {:hex, :tzdata, "0.1.7"}}

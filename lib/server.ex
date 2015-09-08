@@ -44,7 +44,8 @@ defmodule DribbbleGif.Server do
     IO.puts "💬 " <> status
     IO.puts "Tweeting..."
     try do
-      ExTwitter.API.Tweets.upload_tweet(status, image)
+      # ExTwitter.API.Tweets.upload_tweet(status, image)
+      ExTwitter.update_with_media(status, image)
       IO.puts "-------✅✅✅ tweeted. ✅✅✅---------"
     rescue
       e in ExTwitter.Error ->

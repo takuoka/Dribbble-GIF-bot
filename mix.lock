@@ -4,7 +4,7 @@
   "httpoison": {:hex, :httpoison, "0.7.1"},
   "idna": {:hex, :idna, "1.0.2"},
   "mochiweb": {:hex, :mochiweb, "2.12.2"},
-  "oauth": {:git, "git://github.com/tim/erlang-oauth.git", "2ee206ea921722893200a0ad534c6b6130233325", []},
+  "oauth": {:git, "https://github.com/tim/erlang-oauth.git", "2ee206ea921722893200a0ad534c6b6130233325", []},
   "poison": {:hex, :poison, "1.4.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "0.16.2"},

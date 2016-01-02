@@ -30,7 +30,8 @@ config :ex_twitter, :oauth, [
 
 ### kill daemon
 > ps -eaf|grep elixir
-> kill <PID>
+
+> kill \<PID\>
 
 
 **[TODO](https://github.com/entotsu/Dribbble-GIF-bot/blob/master/TODO.md)**

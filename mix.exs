@@ -33,7 +33,6 @@ defmodule DribbbleGif.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.6"},
-      {:timex, "~> 0.16.2"},
       {:floki, "~> 0.3"},
       {:oauth, github: "tim/erlang-oauth"},
       {:extwitter, github: "parroty/extwitter"},

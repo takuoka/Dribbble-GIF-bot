@@ -1,13 +1,16 @@
 defmodule DribbbleGif.Follow do
 
   @minimum_follow_delay_min 15
-  @random_delay_min_range 60
+  @follow_random_delay_min_range 60
+
+  @minimum_unfollow_delay_min 10
+  @unfollow_random_delay_min_range 50
 
   def start_auto_follow do
     IO.puts "🚶💌 start auto follow..."
     users = fetchUsersToFollow
     IO.puts "✨ follow loop start"
-    user_action_loop(users, &follow/1, &gen_delay_min/0)
+    user_action_loop(users, &follow/1, &gen_follow_delay_min/0)
   end
 
   def start_auto_unfollow do
@@ -17,7 +20,7 @@ defmodule DribbbleGif.Follow do
     IO.inspect followings
     IO.puts "========= un-follow user ==========="
     IO.puts "✨ un-follow loop start"
-    user_action_loop(followings, &unfollow/1, &gen_delay_min/0)
+    user_action_loop(followings, &unfollow/1, &gen_unfollow_delay_min/0)
   end
 
   def user_action_loop([user|users], action_func, gen_delay_min_func) do
@@ -32,8 +35,11 @@ defmodule DribbbleGif.Follow do
     raise "✨✨restart this process!! ✨✨"
   end
 
-  def gen_delay_min do
-    @minimum_follow_delay_min + DribbbleGif.Util.random_num(@random_delay_min_range)
+  def gen_follow_delay_min do
+    @minimum_follow_delay_min + DribbbleGif.Util.random_num(@follow_random_delay_min_range)
+  end
+  def gen_unfollow_delay_min do
+    @minimum_unfollow_delay_min + DribbbleGif.Util.random_num(@unfollow_random_delay_min_range)
   end
   def gen_delay_min_zero do
     0
@@ -53,25 +59,13 @@ defmodule DribbbleGif.Follow do
   def unfollow(name) do
     IO.puts "🎃 @#{name} un-following..."
     user = ExTwitter.unfollow(name)
-    if user.following == false do
-      IO.puts "❎ @#{name} un-followed!"
-      true
-    else
-      IO.inspect user
-      IO.puts "❓ un-follow failed?"
-      false
-    end
+    IO.puts "❎ @#{name} un-followed!"
+    true
   end
   def follow(name) do
     IO.puts "💌 @#{name} following..."
     user = ExTwitter.follow(name)
-    if user.following == true do
-      IO.puts "✅ @#{name} followed!"
-      true
-    else
-      IO.inspect user
-      IO.puts "❓ follow failed?"
-      false
-    end
+    IO.puts "✅ @#{name} followed!"
+    true
   end
 end

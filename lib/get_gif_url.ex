@@ -59,6 +59,9 @@ defmodule DribbbleGif.Feeds do
 
     # cut suffix
     cutLength = 4# ".gif"
+    if containString(thumbnail_url, "_still.gif") do
+        cutLength = 10
+    end
     if containString(thumbnail_url, "_1x.gif") do
         cutLength = 7
     end

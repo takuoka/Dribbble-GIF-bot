@@ -32,8 +32,8 @@ defmodule DribbbleGif.Server do
   end
 
   def handle_cast({:wait_and_crash}, cache_pid) do
-    IO.puts "⏰ restart after 4 hour... 😪"
-    :timer.sleep(1000 * 60 * 60 * 4)
+    IO.puts "⏰ restart after 30 hour... 😪"
+    :timer.sleep(1000 * 60 * 60 * 30)
     raise "✨✨restart this process!! ✨✨"
     {:noreply, :ok}
   end
